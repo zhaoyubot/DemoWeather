@@ -19,7 +19,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView weather;
+    ListView lvWeather;
     AsyncHttpClient client;
     ArrayList<Weather> alWeather;
     WeatherAdapter aaWeather;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        weather = findViewById(R.id.weather);
+        lvWeather = findViewById(R.id.weather);
         client = new AsyncHttpClient();
     }
 
@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        ArrayList<Weather> alWeather = new ArrayList<Weather>();
+        alWeather = new ArrayList<Weather>();
+        aaWeather = new WeatherAdapter(MainActivity.this, R.layout.row, alWeather);
+        lvWeather.setAdapter(aaWeather);
 
         client.get("https://api.data.gov.sg/v1/environment/2-hour-weather-forecast", new JsonHttpResponseHandler() {
 
